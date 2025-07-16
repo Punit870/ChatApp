@@ -1,0 +1,30 @@
+@import "tailwindcss";
+html, body {
+  background-color: var(--bg-color, #ffffff);
+  color: var(--text-color, #000000);
+}
+
+
+html.theme-light {
+  --bg-color: #ffffff;
+  --text-color: #111827;
+  --accent-color: #3b82f6;
+}
+
+html.theme-dark {
+  --bg-color: #1f2937;
+  --text-color: #f3f4f6;
+  --accent-color: #3b82f6;
+}
+
+html.theme-green {
+  --bg-color: #ecfdf5;
+  --text-color: #064e3b;
+  --accent-color: #10b981;
+}
+
+html.theme-pink {
+  --bg-color: #fdf2f8;
+  --text-color: #831843;
+  --accent-color: #db2777;
+}
