@@ -6,9 +6,16 @@ import express from "express"
 const app=express()
 const server=http.createServer(app);
 
-const io=new Server(server,{
-    cors:{
-        origin:["http://localhost:5173"]
+const allowedOrigins = [
+    "http://localhost:5173",
+    process.env.CLIENT_ORIGIN,
+    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
+].filter(Boolean);
+
+const io = new Server(server, {
+    cors: {
+        origin: allowedOrigins,
+        credentials: true
     }
 })
 

@@ -12,9 +12,15 @@ import path from "path"
 
 app.use(express.json())
 app.use(cookieParser())
+const allowedOrigins = [
+    "http://localhost:5173",
+    process.env.CLIENT_ORIGIN,
+    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
+].filter(Boolean);
+
 app.use(cors({
-    origin:"http://localhost:5173",
-    credentials:true
+    origin: allowedOrigins,
+    credentials: true
 }))
 
 const PORT=process.env.PORT||4000
@@ -27,13 +33,7 @@ app.use("/api/auth",authRouter);
 app.use("/api/messages",messageRouter);
 
 
-if(process.env.NODE_ENV==="production"){
-    app.use(express.static(path.join(__dirname,"../client/dist")));
-    
-    app.get("*",(req,res)=>{
-        res.sendFile(path.join(__dirname,"../client","dist","index.html"));
-    })
-}
+// Static serving is handled by Vercel for the client build output; keep API only.
 
 server.listen(PORT,()=>{
     console.log(`server is running on port ${PORT}`);
